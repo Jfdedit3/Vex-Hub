@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEX HUB 0.4 Released!</title>
+    <title>VEX HUB 0.4 Release</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -67,7 +67,6 @@
             from { text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color); }
             to { text-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color); }
         }
-
 
         .changelog {
             text-align: left;
@@ -172,6 +171,47 @@
             100% { transform: scale(1); box-shadow: 0 0 15px var(--glow-color); }
         }
 
+        .script-section {
+            margin-bottom: 2.5rem;
+            text-align: center;
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack children vertically */
+            align-items: center; /* Center horizontally */
+        }
+
+        .script-section h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .script-section textarea {
+            width: 100%;
+            max-width: 600px;
+            height: 120px; /* Adjust height as needed */
+            background-color: var(--secondary-color);
+            border: 1px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 1rem;
+            color: var(--text-color);
+            font-family: 'Fira Code', 'Cascadia Code', monospace; /* Monospace font for code */
+            font-size: 0.9rem;
+            resize: vertical;
+            box-shadow: 0 0 10px rgba(83, 120, 255, 0.3);
+            outline: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .script-section textarea:focus {
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        .script-section .cta-button { /* Style for the copy button */
+            margin-top: 1.5rem; /* Space above the button */
+            max-width: 320px; /* Match width of other CTA buttons */
+        }
+
         footer {
             margin-top: 3rem;
             color: var(--text-muted-color);
@@ -189,14 +229,13 @@
             header h1 {
                 font-size: 2rem;
             }
-            .changelog h2 {
+            .changelog h2, .script-section h2 {
                 font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-
     <div class="container">
         <header>
             <h1>VEX HUB 0.4 RELEASED!</h1>
@@ -217,24 +256,50 @@
                 </ul>
             </section>
 
+            <section class="script-section">
+                <h2>Copy the Script</h2>
+                <textarea id="scriptTextarea" readonly>loadstring(game:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\116\117\98\117\115\101\114\99\111\109\47\49\48\49\105\105\105\49\48\49\47\105\100\107\45\114\47\114\101\112\115\47\104\101\97\100\115\47\109\97\105\110\47\111\98\102\117\115\99\97\116\101\100\95\115\99\114\105\112\116\45\49\55\53\48\54\54\57\48\53\53\53\57\50\46\108\117\97\46\116\120\116"))()</textarea>
+                <button id="copyScriptButton" class="cta-button">
+                    <i class="fas fa-copy"></i> Copy Script
+                </button>
+            </section>
+
             <section class="cta">
-                <a href="https://scriptblox.com/script/Universal-Script-Vex-Hub-version-04-43173" class="cta-button" target="_blank" rel="noopener noreferrer">
-                    Get VEX HUB 0.4
-                </a>
                 <a href="https://discord.gg/2S47rbZTeF" class="cta-button discord-button" target="_blank" rel="noopener noreferrer">
                     <i class="fa-brands fa-discord"></i> Join our Discord
                 </a>
             </section>
         </main>
     </div>
-
+    
     <footer>
         <p>&copy; <span id="current-year"></span> Made with ❤️ by The VDT.</p>
     </footer>
 
     <script>
         document.getElementById('current-year').textContent = new Date().getFullYear();
-    </script>
 
+        const copyButton = document.getElementById('copyScriptButton');
+        const scriptTextarea = document.getElementById('scriptTextarea');
+
+        copyButton.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(scriptTextarea.value);
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!'; // Change icon to checkmark
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy Script'; // Revert back
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                // Fallback for older browsers or insecure contexts
+                scriptTextarea.select();
+                document.execCommand('copy');
+                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied! (Fallback)';
+                setTimeout(() => {
+                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy Script';
+                }, 2000);
+            }
+        });
+    </script>
 </body>
 </html>

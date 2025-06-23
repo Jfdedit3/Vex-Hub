@@ -49,12 +49,26 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid var(--secondary-color);
             animation: fadeIn 1s ease-out;
+            display: flex; /* Make navbar a flex container */
+            align-items: center; /* Vertically align items */
+            justify-content: center; /* Center content by default */
+            gap: 1rem; /* Space between logo and tabs */
+        }
+
+        .navbar-logo {
+            width: 50px; /* Adjust size as needed */
+            height: 50px; /* Adjust size as needed */
+            border-radius: 50%; /* Make it round */
+            object-fit: cover; /* Ensure image covers the area */
+            border: 2px solid var(--accent-color); /* Optional border */
+            box-shadow: 0 0 10px var(--glow-color); /* Optional glow */
         }
 
         .nav-tabs {
             display: flex;
             justify-content: center;
             gap: 1rem;
+            flex-grow: 1; /* Allow tabs to take available space and push logo to side */
         }
 
         .nav-tab {
@@ -329,11 +343,23 @@
                 font-size: 1rem;
                 padding: 0.6rem 1rem;
             }
+            .navbar {
+                flex-direction: column; /* Stack logo and tabs vertically on small screens */
+                gap: 0.5rem;
+            }
+            .navbar-logo {
+                margin-bottom: 0.5rem;
+            }
+            .nav-tabs {
+                flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
+        <img src="https://files.catbox.moe/ny7kzx.png" alt="VEX HUB Logo" class="navbar-logo">
         <div class="nav-tabs">
             <button class="nav-tab active" data-target="home-content">Home</button>
             <button class="nav-tab" data-target="vex-scripts-content">Vex Scripts</button>

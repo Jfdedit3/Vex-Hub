@@ -138,13 +138,13 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(30px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(20px); }
+            from { opacity: 1; transform: translateY(0) scale(1); }
+            to { opacity: 0; transform: translateY(-20px) scale(0.98); }
         }
 
         header h1 {
@@ -380,9 +380,13 @@
     
     <div id="vex-scripts-content" class="tab-content">
         <div class="container">
-            <h2>Vex Scripts</h2>
-            <p style="margin-bottom: 1rem;">This section will contain various VEX HUB scripts and resources.</p>
-            <p>Stay tuned for updates!</p>
+            <section class="script-section">
+                <h2>Vex Hub Mm2</h2>
+                <textarea id="mm2ScriptTextarea" readonly>Add soon</textarea>
+                <button id="copyMm2ScriptButton" class="cta-button">
+                    <i class="fas fa-copy"></i> Copy Vex Mm2
+                </button>
+            </section>
         </div>
     </div>
 
@@ -395,24 +399,35 @@
 
         const copyButton = document.getElementById('copyScriptButton');
         const scriptTextarea = document.getElementById('scriptTextarea');
+        const copyMm2ScriptButton = document.getElementById('copyMm2ScriptButton');
+        const mm2ScriptTextarea = document.getElementById('mm2ScriptTextarea');
 
-        copyButton.addEventListener('click', async () => {
+        // Function to handle copying text to clipboard
+        async function copyToClipboard(buttonElement, textareaElement, originalText, copiedText, delay = 2000) {
             try {
-                await navigator.clipboard.writeText(scriptTextarea.value);
-                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied!'; // Change icon to checkmark
+                await navigator.clipboard.writeText(textareaElement.value);
+                buttonElement.innerHTML = `<i class="fas fa-check"></i> ${copiedText}`; // Change icon to checkmark
                 setTimeout(() => {
-                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy Script'; // Revert back
-                }, 2000);
+                    buttonElement.innerHTML = originalText; // Revert back
+                }, delay);
             } catch (err) {
                 console.error('Failed to copy text: ', err);
                 // Fallback for older browsers or insecure contexts
-                scriptTextarea.select();
+                textareaElement.select();
                 document.execCommand('copy');
-                copyButton.innerHTML = '<i class="fas fa-check"></i> Copied! (Fallback)';
+                buttonElement.innerHTML = `<i class="fas fa-check"></i> ${copiedText} (Fallback)`;
                 setTimeout(() => {
-                    copyButton.innerHTML = '<i class="fas fa-copy"></i> Copy Script';
-                }, 2000);
+                    buttonElement.innerHTML = originalText;
+                }, delay);
             }
+        }
+
+        copyButton.addEventListener('click', async () => {
+            copyToClipboard(copyButton, scriptTextarea, '<i class="fas fa-copy"></i> Copy Script', 'Copied!');
+        });
+
+        copyMm2ScriptButton.addEventListener('click', async () => {
+            copyToClipboard(copyMm2ScriptButton, mm2ScriptTextarea, '<i class="fas fa-copy"></i> Copy Vex Mm2', 'Copied!');
         });
 
         // Tab switching logic

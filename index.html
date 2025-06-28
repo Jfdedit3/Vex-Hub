@@ -47,7 +47,7 @@
             padding: 1rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid var(--secondary-color);
-            animation: fadeIn 1s ease-out;
+            animation: fadeIn 1s ease-out forwards; /* Added 'forwards' to ensure it stays visible */
             display: flex;
             align-items: center;
             justify-content: flex-start; /* Change to flex-start to align items to the left */
@@ -131,7 +131,7 @@
 
         .tab-content.active {
             display: block; /* Make it visible */
-            animation: fadeIn 0.5s ease-out forwards; /* Animates in */
+            animation: fadeIn 0.5s ease-out 0.5s forwards; /* Animates in with a delay for fluid introduction */
         }
 
         .tab-content.fading-out {
@@ -377,16 +377,16 @@
     <div id="home-content" class="tab-content active">
         <div class="container">
             <header>
-                <h1>VEX HUB 0.4 STATUS: DOWN</h1>
+                <h1>VEX HUB 1.0 STATUS: SOON</h1>
             </header>
 
             <main>
                 
                 <section class="script-section">
                     <h2>Main Script</h2>
-                    <textarea id="scriptTextarea" readonly data-language="lua">VEX HUB 0.4 is currently down.</textarea>
+                    <textarea id="scriptTextarea" readonly data-language="lua">VEX HUB 1.0 STATUS: SOON</textarea>
                     <button id="copyScriptButton" class="cta-button" disabled>
-                        <i class="fas fa-times-circle"></i> Script Down
+                        <i class="fas fa-times-circle"></i> Script SOON
                     </button>
                 </section>
 

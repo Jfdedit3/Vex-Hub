@@ -9,13 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         :root {
-            --bg-color: #12121c;
+            --bg-color: #0d0d15; /* Slightly darker base for depth */
             --primary-color: #1a1a2e;
             --secondary-color: #2a2a4a;
             --accent-color: #5378ff;
             --text-color: #e0e0e0;
             --text-muted-color: #a0a0a0;
             --glow-color: rgba(83, 120, 255, 0.5);
+
+            /* New variables for modern interface enhancements */
+            --border-gradient: linear-gradient(90deg, rgba(83, 120, 255, 0.3), rgba(83, 120, 255, 0.1));
+            --card-shadow: 0 10px 40px rgba(0, 0, 0, 0.4), inset 0 0 10px rgba(83, 120, 255, 0.1);
+            --button-shadow: 0 8px 25px rgba(83, 120, 255, 0.4);
         }
 
         * {
@@ -26,7 +31,12 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
+            background: var(--bg-color); /* Base color */
+            /* Subtle background gradients for a more dynamic feel */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(83, 120, 255, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 90% 80%, rgba(83, 120, 255, 0.08) 0%, transparent 60%);
+            background-attachment: fixed; /* Keep background fixed when scrolling */
             color: var(--text-color);
             display: flex;
             flex-direction: column;
@@ -35,6 +45,7 @@
             min-height: 100vh;
             padding: 2rem 1rem;
             overflow-x: hidden;
+            position: relative;
         }
 
         /* Navbar styles */
@@ -45,13 +56,37 @@
             background-color: var(--primary-color);
             border-radius: 16px;
             padding: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--secondary-color);
-            animation: fadeIn 1s ease-out forwards; /* Added 'forwards' to ensure it stays visible */
+            box-shadow: var(--card-shadow); /* Enhanced shadow */
+            /* border: 1px solid var(--secondary-color); Replaced with pseudo-element border */
+            animation: fadeIn 1s ease-out forwards;
             display: flex;
             align-items: center;
             justify-content: flex-start; /* Change to flex-start to align items to the left */
             gap: 1rem;
+            position: relative; /* For pseudo-element border */
+            overflow: hidden; /* Ensure pseudo-element border is clipped */
+            z-index: 1; /* Ensure content is above pseudo-border */
+        }
+
+        /* Apply gradient border effect to navbar and container */
+        .navbar::before,
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            padding: 1px; /* Thickness of the border */
+            background: var(--border-gradient); /* Gradient for the border */
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) content-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            z-index: -1; /* Place behind the actual content */
         }
 
         .navbar-logo {
@@ -78,7 +113,7 @@
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+            transition: color 0.3s ease, background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Added box-shadow to transition */
             border-radius: 8px;
             position: relative;
             overflow: hidden;
@@ -88,12 +123,13 @@
         .nav-tab:hover {
             color: var(--text-color);
             transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(83, 120, 255, 0.2); /* Subtle hover shadow */
         }
 
         .nav-tab.active {
             color: var(--accent-color);
             background-color: var(--secondary-color);
-            box-shadow: 0 0 15px var(--glow-color);
+            box-shadow: 0 0 20px var(--glow-color); /* Stronger glow for active */
         }
 
         .nav-tab.active:hover {
@@ -107,8 +143,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background-color: var(--accent-color);
+            height: 4px; /* Slightly thicker underline */
+            background: linear-gradient(90deg, var(--accent-color), rgba(83, 120, 255, 0.7)); /* Gradient underline */
             border-radius: 2px 2px 0 0;
             animation: tabUnderline 0.3s ease-out forwards;
         }
@@ -145,9 +181,12 @@
             background-color: var(--primary-color);
             border-radius: 16px;
             padding: 2rem 3rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--secondary-color);
+            box-shadow: var(--card-shadow); /* Enhanced shadow */
+            /* border: 1px solid var(--secondary-color); Replaced with pseudo-element border */
             text-align: center;
+            position: relative; /* For pseudo-element border */
+            overflow: hidden; /* Ensure pseudo-element border is clipped */
+            z-index: 1; /* Ensure content is above pseudo-border */
         }
         
         @keyframes fadeIn {
@@ -202,8 +241,16 @@
             padding-left: 2.5rem;
             opacity: 0;
             animation: slideIn 0.5s ease-out forwards;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            border: 1px solid rgba(83, 120, 255, 0.1); /* Very subtle border */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         
+        .changelog li:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3), 0 0 10px var(--glow-color); /* Enhanced hover shadow */
+        }
+
         .changelog li:before {
             content: '✓';
             color: var(--accent-color);
@@ -249,26 +296,27 @@
             font-weight: 600;
             font-size: 1.1rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 0 15px var(--glow-color);
+            box-shadow: var(--button-shadow); /* Enhanced button shadow */
             animation: pulse 2s infinite;
             width: 100%;
             max-width: 320px;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.4); /* Subtle text shadow for clarity */
         }
 
         .cta-button.discord-button {
             background: #5865F2;
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.5);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.4); /* Consistent with new button shadow */
             animation: none; /* remove pulse from discord button */
         }
 
         .cta-button:hover {
             transform: translateY(-5px);
-            box-shadow: 0 0 25px var(--glow-color);
+            box-shadow: 0 0 35px var(--glow-color); /* Stronger hover glow */
             animation-play-state: paused;
         }
         
         .cta-button.discord-button:hover {
-            box-shadow: 0 0 25px rgba(88, 101, 242, 0.7);
+            box-shadow: 0 0 35px rgba(88, 101, 242, 0.7); /* Stronger discord hover glow */
         }
 
         .cta-button:disabled {
@@ -281,9 +329,9 @@
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 15px var(--glow-color); }
-            50% { transform: scale(1.05); box-shadow: 0 0 25px var(--glow-color); }
-            100% { transform: scale(1); box-shadow: 0 0 15px var(--glow-color); }
+            0% { transform: scale(1); box-shadow: var(--button-shadow); }
+            50% { transform: scale(1.03); box-shadow: 0 0 30px var(--glow-color); }
+            100% { transform: scale(1); box-shadow: var(--button-shadow); }
         }
 
         .script-section {
@@ -313,13 +361,14 @@
             font-family: 'Fira Code', 'Cascadia Code', monospace; /* Monospace font for code */
             font-size: 0.9rem;
             resize: vertical;
-            box-shadow: 0 0 10px rgba(83, 120, 255, 0.3);
+            box-shadow: 0 0 10px rgba(83, 120, 255, 0.2), inset 0 0 8px rgba(0, 0, 0, 0.4); /* Added inner shadow */
             outline: none;
-            transition: box-shadow 0.3s ease;
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
         .script-section textarea:focus {
-            box-shadow: 0 0 15px var(--glow-color);
+            box-shadow: 0 0 20px var(--glow-color), inset 0 0 12px rgba(0, 0, 0, 0.6); /* Enhanced focus shadow */
+            border-color: var(--accent-color);
         }
 
         .script-section .cta-button { /* Style for the copy button */

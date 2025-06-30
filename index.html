@@ -446,9 +446,9 @@
                 
                 <section class="script-section">
                     <h2>Main Script</h2>
-                    <textarea id="scriptTextarea" readonly data-language="lua">SOON</textarea>
+                    <textarea id="scriptTextarea" readonly data-language="lua">unavailable: coming soon</textarea>
                     <button id="copyScriptButton" class="cta-button" disabled>
-                        <i class="fas fa-times-circle"></i> Script SOON
+                        <i class="fas fa-times-circle"></i> unavailable: coming soon
                     </button>
                 </section>
 
@@ -465,9 +465,17 @@
         <div class="container">
             <section class="script-section">
                 <h2>Vex Hub Mm2</h2>
-                <textarea id="mm2ScriptTextarea" readonly data-language="lua">loadstring(game:HttpGet("https://raw.githubusercontent.com/INCAVO/Vex-Hub-Mm2/refs/heads/main/Vex%20Hub%20MM2"))()</textarea>
-                <button id="copyMm2ScriptButton" class="cta-button">
-                    <i class="fas fa-copy"></i> Copy Vex Mm2
+                <textarea id="mm2ScriptTextarea" readonly data-language="lua">unavailable: coming soon</textarea>
+                <button id="copyMm2ScriptButton" class="cta-button" disabled>
+                    <i class="fas fa-times-circle"></i> unavailable: coming soon
+                </button>
+            </section>
+            <!-- New Vex Hub Blade Ball section -->
+            <section class="script-section">
+                <h2>Vex Hub Blade Ball</h2>
+                <textarea id="bladeBallScriptTextarea" readonly data-language="lua">unavailable: coming soon</textarea>
+                <button id="copyBladeBallScriptButton" class="cta-button" disabled>
+                    <i class="fas fa-times-circle"></i> unavailable: coming soon
                 </button>
             </section>
         </div>
@@ -484,6 +492,9 @@
         const scriptTextarea = document.getElementById('scriptTextarea');
         const copyMm2ScriptButton = document.getElementById('copyMm2ScriptButton');
         const mm2ScriptTextarea = document.getElementById('mm2ScriptTextarea');
+        // New variables for Blade Ball script
+        const copyBladeBallScriptButton = document.getElementById('copyBladeBallScriptButton');
+        const bladeBallScriptTextarea = document.getElementById('bladeBallScriptTextarea');
 
         // Function to handle copying text to clipboard
         async function copyToClipboard(buttonElement, textareaElement, originalText, copiedText, delay = 2000) {
@@ -512,9 +523,7 @@
         // The main copy button for VEX HUB 0.4 will now be disabled by default in HTML
         // No need for an event listener for it as it's disabled.
 
-        copyMm2ScriptButton.addEventListener('click', async () => {
-            copyToClipboard(copyMm2ScriptButton, mm2ScriptTextarea, '<i class="fas fa-copy"></i> Copy Vex Mm2', 'Copied!');
-        });
+        // No event listener needed for copyBladeBallScriptButton as it's disabled by default.
 
         // Tab switching logic
         const navTabs = document.querySelectorAll('.nav-tab');

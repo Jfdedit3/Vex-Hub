@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEX HUB 0.4 Release</title>
+    <title>VEX HUB Release</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -478,6 +479,14 @@
                     <i class="fas fa-times-circle"></i> unavailable: coming soon
                 </button>
             </section>
+            <!-- New Vex Hub Tower of Hell section -->
+            <section class="script-section">
+                <h2>Vex Hub Tower of Hell</h2>
+                <textarea id="towerOfHellScriptTextarea" readonly data-language="lua">unavailable: coming soon</textarea>
+                <button id="copyTowerOfHellScriptButton" class="cta-button" disabled>
+                    <i class="fas fa-times-circle"></i> unavailable: coming soon
+                </button>
+            </section>
         </div>
     </div>
 
@@ -495,6 +504,9 @@
         // New variables for Blade Ball script
         const copyBladeBallScriptButton = document.getElementById('copyBladeBallScriptButton');
         const bladeBallScriptTextarea = document.getElementById('bladeBallScriptTextarea');
+        // New variables for Tower of Hell script
+        const copyTowerOfHellScriptButton = document.getElementById('copyTowerOfHellScriptButton');
+        const towerOfHellScriptTextarea = document.getElementById('towerOfHellScriptTextarea');
 
         // Function to handle copying text to clipboard
         async function copyToClipboard(buttonElement, textareaElement, originalText, copiedText, delay = 2000) {
